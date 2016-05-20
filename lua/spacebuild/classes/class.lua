@@ -14,7 +14,8 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 local GM = SPACEBUILD
-local class = GM.class
+local class = GM.class or {}
+GM.class = class
 
 local preload = true
 local tostring = tostring
@@ -84,26 +85,26 @@ end
 
 -- PreLoad
 
-class.new("Resource")
-class.new("ResourceContainer")
-class.new("ResourceEntity")
-class.new("ResourceInfo")
-class.new("ResourceNetwork")
-class.new("PlayerSuit")
-class.new("BaseEnvironment")
-class.new("SunEnvironment")
-class.new("LegacyBloomInfo")
-class.new("LegacyColorInfo")
-class.new("LegacyPlanet")
-class.new("SpaceEnvironment")
-class.new("BottomLeftPanel")
-class.new("BottomRightPanel")
-class.new("HudBarIndicator")
-class.new("HudBarTextIndicator")
-class.new("HudComponent")
-class.new("HudPanel")
-class.new("TextElement")
-class.new("TopLeftPanel")
-class.new("TopRightPanel")
+class.new("rd/Resource")
+class.new("rd/ResourceContainer")
+class.new("rd/ResourceEntity")
+class.new("rd/ResourceInfo")
+class.new("rd/ResourceNetwork")
+class.new("ls/PlayerSuit")
+class.new("sb/BaseEnvironment")
+class.new("sb/SunEnvironment")
+class.new("sb/LegacyBloomInfo")
+class.new("sb/LegacyColorInfo")
+class.new("sb/LegacyPlanet")
+class.new("sb/SpaceEnvironment")
+class.new("ui/BottomLeftPanel")
+class.new("ui/BottomRightPanel")
+class.new("ui/HudBarIndicator")
+class.new("ui/HudBarTextIndicator")
+class.new("ui/HudComponent")
+class.new("ui/HudPanel")
+class.new("ui/TextElement")
+class.new("ui/TopLeftPanel")
+class.new("ui/TopRightPanel")
 
 preload = false

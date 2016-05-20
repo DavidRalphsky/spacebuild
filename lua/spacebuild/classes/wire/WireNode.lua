@@ -18,7 +18,7 @@ include("WireComponent.lua")
 
 local C = CLASS
 
-local GM = GM
+local GM = SPACEBUILD
 local class = GM.class
 
 local oldInit = C.init

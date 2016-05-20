@@ -16,7 +16,7 @@
 
 local C = CLASS
 
-local GM = GM
+local GM = SPACEBUILD
 local class = GM.class
 
 function C:isA(className)
@@ -47,7 +47,7 @@ function C:getName()
 end
 
 function C:addInput(name)
-	local input = class.new("WireInput", self, name)
+	local input = class.new("wire/WireInput", self, name)
 	self.inputs[name] = input
 	return input
 end
@@ -57,7 +57,7 @@ function C:getInput(name)
 end
 
 function C:addOutput(name)
-	local output = class.new("WireOutput", self, name)
+	local output = class.new("wire/WireOutput", self, name)
 	self.outputs[name] = output
 	return output
 end

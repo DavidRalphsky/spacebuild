@@ -28,7 +28,7 @@ local net = sbnet
 
 -- Class specific
 local C = CLASS
-local GM = GM
+local GM = SPACEBUILD
 local class = GM.class
 
 --- General class function to check is this class is of a certain type
@@ -66,7 +66,7 @@ function C:addResource(name, maxAmount, amount)
 	if not maxAmount or type(maxAmount) ~= "number" or maxAmount < 0 then maxAmount = amount end
 	local res = self.resources[name]
 	if not res then
-		res = class.new("Resource", name, maxAmount, amount)
+		res = class.new("rd/Resource", name, maxAmount, amount)
 		self.resources[name] = res
 	else
 		res:setMaxAmount(res:getMaxAmount() + maxAmount)
@@ -188,7 +188,7 @@ function C:receive()
 		id = net.readTiny()
 		name = GM:getResourceInfoFromID(id):getName()
 		if not self.resources[name] then
-			self.resources[name] = class.new("Resource", name)
+			self.resources[name] = class.new("rd/Resource", name)
 		end
 		self.resources[name]:receive()
 	end

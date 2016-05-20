@@ -26,7 +26,7 @@ require("sbnet")
 local net = sbnet
 -- Class specific
 local C = CLASS
-local GM = GM
+local GM = SPACEBUILD
 
 --- General class function to check is this class is of a certain type
 -- @param className the classname to check against

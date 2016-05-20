@@ -22,7 +22,7 @@ local net = sbnet
 
 -- Class Specific
 local C = CLASS
-local GM = GM
+local GM = SPACEBUILD
 local const = GM.constants
 local util = GM.util
 

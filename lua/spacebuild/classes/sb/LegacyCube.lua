@@ -25,7 +25,7 @@ include("LegacyPlanet.lua")
 
 -- Class Specific
 local C = CLASS
-local GM = GM
+local GM = SPACEBUILD
 
 -- Function Refs
 local funcRef = {
