@@ -26,7 +26,6 @@ require("sbnet")
 local net = sbnet
 -- Class specific
 local C = CLASS
-local GM = SPACEBUILD
 
 --- General class function to check is this class is of a certain type
 -- @param className the classname to check against
@@ -35,15 +34,18 @@ function C:isA(className)
 	return className == "Resource"
 end
 
-function C:init(name, maxAmount, amount)
+function C:init(name, maxAmount, amount, resourceRegistry)
 	if not name then error("Resource requires a name!") end
+	if not amount then error("Resource requires an amount!") end
+	if not maxAmount then error("Resource requires a max amount!") end
 	name = tostring(name)
-	if not amount or type(amount) ~= "number" or amount < 0 then amount = 0 end
-	if not maxAmount or type(maxAmount) ~= "number" or maxAmount < 0 then maxAmount = amount end
+	if type(amount) ~= "number" or amount < 0 then amount = 0 end
+	if type(maxAmount) ~= "number" or maxAmount < 0 then maxAmount = amount end
 	self.name = name
 	self.amount = amount
 	self.maxAmount = maxAmount
-	self.resourceInfo = GM:getResourceInfoFromName(name)
+	self.resourceRegistry = resourceRegistry
+	self.resourceInfo = resourceRegistry:getResourceInfoFromName(name)
 	self.modified = CurTime()
 	self.modifiedMaxAmount = CurTime()
 end
@@ -161,7 +163,7 @@ function C:onLoad(data)
 	self.name = data.name
 	self.amount = data.amount
 	self.maxAmount = data.maxAmount
-	self.resourceInfo = GM:getResourceInfoFromName(self.name)
+	self.resourceInfo = self.resourceRegistry:getResourceInfoFromName(self.name)
 	self.modified = CurTime()
 	self.modifiedMaxAmount = CurTime()
 end

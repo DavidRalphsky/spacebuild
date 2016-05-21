@@ -21,14 +21,12 @@ include("ResourceContainer.lua")
 local type = type
 
 -- Gmod specific
-local Entity = Entity
 local CurTime = CurTime
 require("sbnet")
 local net = sbnet
 
 -- Class Specific
 local C = CLASS
-local GM = SPACEBUILD
 
 -- Function Refs
 local funcRef = {
@@ -53,9 +51,9 @@ function C:isA(className)
 	return funcRef.isA(self, className) or className == "ResourceEntity"
 end
 
-function C:init(entID)
+function C:init(entID, resourceRegistry, classLoader)
 	if entID and type(entID) ~= "number" then error("You have to supply the entity id or nil to create a ResourceEntity") end
-	funcRef.init(self, entID)
+	funcRef.init(self, entID, resourceRegistry, classLoader)
 	self.network = nil
 end
 
@@ -148,7 +146,7 @@ end
 --- Sync function to receive data from the server to this client
 --
 function C:receive()
-	self.network = GM:getDeviceInfo(net.readShort())
+	self.network = self.resourceRegistry:getDeviceInfo(net.readShort())
 	funcRef.receiveSignal(self)
 end
 
@@ -158,7 +156,7 @@ function C:onLoad(data)
 	funcRef.onLoad(self, data)
 	local ent = self
 	timer.Simple(0.1, function()
-		ent.network = GM:getDeviceInfo(data.network.syncid)
+		ent.network = self.resourceRegistry:getDeviceInfo(data.network.syncid)
 	end)
 end
 

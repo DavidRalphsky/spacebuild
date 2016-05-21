@@ -67,7 +67,7 @@ if SERVER then
         local lu = luaunit
         loadLuaFiles("spacebuild/tests/shared", include, "Loading")
         loadLuaFiles("spacebuild/tests/server", include, "Loading")
-        MsgN("Tests completed: "..lu.LuaUnit.run())
+        MsgN("Tests completed: "..lu.LuaUnit.run('-v'))
     end)
 end
 
@@ -77,7 +77,7 @@ if CLIENT then
         local lu = luaunit
         loadLuaFiles("spacebuild/tests/shared", include, "Loading")
         loadLuaFiles("spacebuild/tests/client", include, "Loading")
-        MsgN("Tests completed: "..lu.LuaUnit.run())
+        MsgN("Tests completed: "..lu.LuaUnit.run('-v'))
     end)
 end
 

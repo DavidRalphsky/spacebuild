@@ -35,6 +35,7 @@ local loadedclasses = {}
 local function getClassFolder(name)
 	if preload then return "" end
 	for k, v in pairs(classes_folder) do
+		MsgN("Looking for:"..v .. name .. ".lua")
 		if #file.Find(v .. name .. ".lua", "LUA") == 1 then
 			return v
 		end
@@ -84,7 +85,7 @@ function class.registerClassPath(path)
 end
 
 -- PreLoad
-
+class.new("rd/ResourceRegistry")
 class.new("rd/Resource")
 class.new("rd/ResourceContainer")
 class.new("rd/ResourceEntity")

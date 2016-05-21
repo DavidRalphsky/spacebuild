@@ -28,7 +28,6 @@ require("sbnet")
 local net = sbnet
 -- Class Specific
 local C = CLASS
-local GM = SPACEBUILD
 
 local funcRef = {
 	isA = C.isA,
@@ -52,9 +51,9 @@ function C:isA(className)
 end
 
 
-function C:init(entID)
+function C:init(entID, resourceRegistry, classLoader)
 	if entID and type(entID) ~= "number" then error("You have to supply the entity id or nil to create a ResourceNetwork") end
-	funcRef.init(self, entID)
+	funcRef.init(self, entID, resourceRegistry, classLoader)
 	self.containers = {}
 	self.networks = {}
 	self.busy = false
@@ -247,6 +246,7 @@ function C:receive()
 		local am, id
 		for am = 1, nrofcontainers do
 			id = net.readShort()
+			--TODO how to get this
 			self.containers[id] = GM:getDeviceInfo(id)
 		end
 	end
@@ -257,6 +257,7 @@ function C:receive()
 		local am, id
 		for am = 1, nrofnetworks do
 			id = net.readShort()
+			-- TODO how to get this
 			self.networks[id] = GM:getDeviceInfo(id)
 		end
 	end
@@ -268,9 +269,11 @@ end
 function C:applyDupeInfo(data, newent, CreatedEntities)
 	--funcRef.applyDupeInfo(self, data, newent, CreatedEntities) -- Don't restore resource info, this will happen by relinking below
 	for k, v in pairs(data.networks) do
+		-- TODO how to get this
 		self:link(GM:getDeviceInfo(CreatedEntities[k]:EntIndex()))
 	end
 	for k, v in pairs(data.containers) do
+		-- TODO how to get this
 		self:link(GM:getDeviceInfo(CreatedEntities[k]:EntIndex()))
 	end
 end
@@ -280,9 +283,11 @@ function C:onLoad(data)
 	local ent = self
 	timer.Simple(0.1, function()
 		for k, v in pairs(data.networks) do
+			-- TODO how to get this
 			ent.networks[v] = GM:getDeviceInfo(k)
 		end
 		for k, v in pairs(data.containers) do
+			--TODO how to get this
 			ent.containers[v] = GM:getDeviceInfo(k)
 		end
 	end)

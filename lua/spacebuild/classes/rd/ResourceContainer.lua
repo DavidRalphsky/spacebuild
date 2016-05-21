@@ -28,8 +28,6 @@ local net = sbnet
 
 -- Class specific
 local C = CLASS
-local GM = SPACEBUILD
-local class = GM.class
 
 --- General class function to check is this class is of a certain type
 -- @param className the classname to check against
@@ -38,7 +36,9 @@ function C:isA(className)
 	return className == "ResourceContainer"
 end
 
-function C:init(syncid)
+function C:init(syncid, resourceRegistry, classLoader)
+	self.resourceRegistry = resourceRegistry
+	self.classLoader = classLoader
 	self.syncid = syncid
 	self.resources = {}
 	self.delta = 0
@@ -66,7 +66,7 @@ function C:addResource(name, maxAmount, amount)
 	if not maxAmount or type(maxAmount) ~= "number" or maxAmount < 0 then maxAmount = amount end
 	local res = self.resources[name]
 	if not res then
-		res = class.new("rd/Resource", name, maxAmount, amount)
+		res = self.classLoader.new("rd/Resource", name, maxAmount, amount, self.resourceRegistry)
 		self.resources[name] = res
 	else
 		res:setMaxAmount(res:getMaxAmount() + maxAmount)
@@ -186,7 +186,7 @@ function C:receive()
 	local id
 	for am = 1, nrRes do
 		id = net.readTiny()
-		name = GM:getResourceInfoFromID(id):getName()
+		name = self.resourceRegistry:getResourceInfoFromID(id):getName()
 		if not self.resources[name] then
 			self.resources[name] = class.new("rd/Resource", name)
 		end
