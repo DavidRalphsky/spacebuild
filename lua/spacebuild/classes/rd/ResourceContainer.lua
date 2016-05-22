@@ -37,6 +37,8 @@ function C:isA(className)
 end
 
 function C:init(syncid, resourceRegistry, classLoader)
+	if not resourceRegistry then error("Resource requires a reference to the resourceRegistry!") end
+	if not classLoader then error("Resource requires a reference to the classLoader!") end
 	self.resourceRegistry = resourceRegistry
 	self.classLoader = classLoader
 	self.syncid = syncid

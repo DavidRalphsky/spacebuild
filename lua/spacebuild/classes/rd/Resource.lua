@@ -38,9 +38,13 @@ function C:init(name, maxAmount, amount, resourceRegistry)
 	if not name then error("Resource requires a name!") end
 	if not amount then error("Resource requires an amount!") end
 	if not maxAmount then error("Resource requires a max amount!") end
+	if not resourceRegistry then error("Resource requires a reference to the resourceRegistry!") end
 	name = tostring(name)
 	if type(amount) ~= "number" or amount < 0 then amount = 0 end
 	if type(maxAmount) ~= "number" or maxAmount < 0 then maxAmount = amount end
+	if amount > maxAmount then
+		amount = maxAmount
+	end
 	self.name = name
 	self.amount = amount
 	self.maxAmount = maxAmount

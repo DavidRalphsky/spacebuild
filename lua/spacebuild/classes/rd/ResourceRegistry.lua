@@ -9,6 +9,7 @@ function C:isA(className)
 end
 
 function C:init(classLoader)
+    if not classLoader then error("Resource requires a reference to the classLoader!") end
     self.classLoader = classLoader
     self.resources_names_table = {}
     self.resources_ids_table = {}

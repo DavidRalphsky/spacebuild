@@ -24,27 +24,24 @@ local lu = luaunit
 
 TestClasses = {} --class
 function TestClasses:setUp()
-	-- this function is run before each test, so that multiple
-	-- tests can share initialisations
+	self.resourceRegistry = class.new("rd/ResourceRegistry", class)
+	self.resourceRegistry:registerResourceInfo(1, "energy", "Energy", { "ENERGY" })
+	self.resourceRegistry:registerResourceInfo(2, "oxygen", "Oxygen", { "GAS" })
+	self.resourceRegistry:registerResourceInfo(3, "water", "Water", { "LIQUID", "COOLANT" })
+	self.resourceRegistry:registerResourceInfo(4, "hydrogen", "Hydrogen", { "GAS", "FLAMABLE" })
+	self.resourceRegistry:registerResourceInfo(5, "nitrogen", "Nitrogen", { "GAS", "COOLANT" })
+	self.resourceRegistry:registerResourceInfo(6, "co2", "Carbon Dioxide", { "GAS" })
 end
 
 function TestClasses:tearDown()
-	-- this function is executed after each test
-	-- here, we have nothing to do so we could have avoid
-	-- declaring it
+	self.resourceRegistry = nil
 end
 
 function TestClasses:testClasses()
-	local resourceRegistry = class.new("rd/ResourceRegistry", class)
-	resourceRegistry:registerResourceInfo(1, "energy", "Energy", { "ENERGY" })
-	resourceRegistry:registerResourceInfo(2, "oxygen", "Oxygen", { "GAS" })
-	resourceRegistry:registerResourceInfo(3, "water", "Water", { "LIQUID", "COOLANT" })
-	resourceRegistry:registerResourceInfo(4, "hydrogen", "Hydrogen", { "GAS", "FLAMABLE" })
-	resourceRegistry:registerResourceInfo(5, "nitrogen", "Nitrogen", { "GAS", "COOLANT" })
-	resourceRegistry:registerResourceInfo(6, "co2", "Carbon Dioxide", { "GAS" })
-
+	local resourceRegistry = self.resourceRegistry
 	local obj = class.new("rd/Resource", "resource_name", 0, 0, resourceRegistry)
 	lu.assert(obj)
+	lu.assertTrue(obj:isA("Resource"))
 	lu.assertEquals(obj:getName(), "resource_name")
 
 	local network1 = class.new("rd/ResourceNetwork", 1, resourceRegistry, class)
