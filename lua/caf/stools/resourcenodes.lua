@@ -45,7 +45,7 @@ local function link_in_range(ent, range)
 end
 
 local function resource_node_func(ent,type,sub_type,devinfo,Extra_Data,ent_extras)
-	MsgAll("Trying to Spawn Resource Node: "..tostring(type).."\n");
+	--MsgAll("Trying to Spawn Resource Node: "..tostring(type).."\n");
 	local volume_mul = 1 --Change to be 0 by default later on
 	local base_volume = 2958
 	local base_mass = 20
@@ -76,7 +76,7 @@ local function resource_node_func(ent,type,sub_type,devinfo,Extra_Data,ent_extra
 	end
 	ent:SetRange(range)
 	if Extra_Data and Extra_Data.custom_name then
-		Msg("Set name: "..tostring(Extra_Data.custom_name).."\n")
+		--Msg("Set name: "..tostring(Extra_Data.custom_name).."\n")
 		ent:SetCustomNodeName(Extra_Data.custom_name)
 	end
 	if Extra_Data and Extra_Data.auto_link then
